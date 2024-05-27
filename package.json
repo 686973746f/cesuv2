@@ -1,4 +1,6 @@
 {
+    "name": "cesu-v2",
+    "homepage": "https://v2.cesugentri.com",
     "private": true,
     "type": "module",
     "scripts": {
