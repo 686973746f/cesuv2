@@ -1,11 +1,10 @@
 <?php
 
-use App\Http\Controllers\IcsTicketController;
-use Inertia\Inertia;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TaskController;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +26,7 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/dashboard', fn() => Inertia::render('Dashboard'))->name('dashboard');
 
-    Route::get('/ics', [IcsTicketController::class, 'index'])->name('ics_index');
+    Route::get('/tasks', [TaskController::class, 'index'])->name('task_index');
 });
 
 Route::middleware('auth')->group(function () {
