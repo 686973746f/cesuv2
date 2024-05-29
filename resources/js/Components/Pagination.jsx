@@ -5,11 +5,10 @@ export default function Pagination({ links }) {
         <nav>
             <ul className="pagination justify-content-center">
                 {links.map((link) => (
-                    <li className="page-item">
+                    <li className="page-item" key={link.label}>
                         <Link
                         preserveScroll
                         href={link.url || ""}
-                        key={link.label}
                         className={"page-link " + (link.active ? "active" : '')}
                         dangerouslySetInnerHTML={{__html: link.label}}>
 

@@ -10,6 +10,12 @@ use App\Http\Resources\OpdTicketResource;
 class TaskController extends Controller
 {
     public function index() {
+        $existing_tickets = SyndromicRecords::where('facility_id', auth()->user()->itr_facility_id)
+        ->where('ics_grabbedby', Auth::id())
+        ->orderBy('ics_grabbed_date', 'ASC')
+        ->paginate(5)
+        ->onEachside(1);
+
         $opdlist = SyndromicRecords::where('facility_id', auth()->user()->itr_facility_id)
         ->whereNull('ics_grabbedby')
         ->orderBy('created_at', 'DESC')
@@ -18,31 +24,43 @@ class TaskController extends Controller
         
         return inertia('Tasks/Index', [
             'opdlist' => OpdTicketResource::collection($opdlist),
+            'existing_tickets' => OpdTicketResource::collection($existing_tickets),
             'msg' => session('msg'),
             'msgtype' => session('msgtype'),
         ]);
     }
 
-    public function grabOpdTicket(Request $r) {
+    public function grabTicket(Request $r) {
         $id = $r->ticket_id;
 
-        dd($id);
+        if($r->type == 'opd') {
+            $update = SyndromicRecords::findOrFail($id);
 
-        $update = SyndromicRecords::findOrFail($id);
+            $queryParameters = request()->query();
 
-        $queryParameters = request()->query();
+            if(!is_null($update->ics_grabbedby)) {
+                return to_route('task_index', $queryParameters)
+                ->with('msg', 'Error: Ticket was already grabbed by the other user. Please try another.')
+                ->with('msgtype', 'warning');
+            }
+            else {
+                $update->ics_grabbedby = auth()->user()->id;
+                $update->ics_grabbed_date = date('Y-m-d H:i:s');
 
-        if(!is_null($update->ics_grabbedby)) {
-            return to_route('task_index', $queryParameters)
-            ->with('msg', 'Error: Ticket was already grabbed by the other user. Please try another.')
-            ->with('msgtype', 'warning');
+                if($update->isDirty()) {
+                    $update->save();
+                }
+            }
+
+            return to_route('opdtask_view', $id)
+            ->with('msg', 'Successfully grabbed the ticket.')
+            ->with('msgtype', 'success');
         }
         else {
-            $update->ics_grabbedby = Auth::id();
-            $update->ics_grabbed_date = date('Y-m-d H:i:s');
+
         }
 
-        return to_route('opdtask_view', $id);
+        
     }
 
     public function viewOpdTicket($id) {
@@ -53,5 +71,25 @@ class TaskController extends Controller
             'msg' => session('msg'),
             'msgtype' => session('msgtype'),
         ]);
+    }
+
+    public function viewCesuTicket($id) {
+
+    }
+
+    public function closeOpdTicket($id) {
+
+    }
+
+    public function closeCesuTicket($id) {
+        
+    }
+
+    public function moreOpdTask() {
+
+    }
+
+    public function moreCesuTask() {
+        
     }
 }

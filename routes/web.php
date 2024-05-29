@@ -27,8 +27,12 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/dashboard', fn() => Inertia::render('Dashboard'))->name('dashboard');
 
     Route::get('/tasks', [TaskController::class, 'index'])->name('task_index');
-    Route::post('/tasks/opd/grab/', [TaskController::class, 'grabOpdTicket'])->name('opdtask_grab');
+    Route::post('/tasks/grab_ticket', [TaskController::class, 'grabTicket'])->name('task_grab');
+    Route::get('/tasks/cesu_task/view/{id}', [TaskController::class, 'viewOpdTicket'])->name('opdtask_view');
     Route::get('/tasks/opd/view/{id}', [TaskController::class, 'viewOpdTicket'])->name('opdtask_view');
+
+    Route::post('/tasks/opd/view/{id}/close_ticket', [TaskController::class, 'viewOpdTicket'])->name('opdtask_view');
+    Route::post('/tasks/cesu_task/view/{id}/close_ticket', [TaskController::class, 'viewOpdTicket'])->name('opdtask_view');
 });
 
 Route::middleware('auth')->group(function () {

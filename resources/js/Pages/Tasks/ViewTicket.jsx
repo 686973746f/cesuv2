@@ -35,6 +35,9 @@ export default function Dashboard({ auth, opdlist, msg, msgtype }) {
                     <div class="card-body">
                         
                     </div>
+                    <div class="card-footer text-right">
+
+                    </div>
                 </div>
                 
             </div>
