@@ -1,8 +1,20 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Pagination from '@/Components/Pagination';
-import { Head } from '@inertiajs/react';
+import { Head, Link, useForm} from '@inertiajs/react';
 
-export default function Dashboard({ auth, opdlist }) {
+export default function Dashboard({ auth, opdlist, msg, msgtype }) {
+    const { data, setData, post, errors, reset } = useForm({
+        "ticket_id": "",
+    });
+
+    const onSubmit = (e, ticket_id) => {
+        e.preventDefault();
+
+        setData("ticket_id", ticket_id);
+
+        post(route("opdtask_grab"));
+    };
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -11,6 +23,14 @@ export default function Dashboard({ auth, opdlist }) {
             <Head title="Dashboard" />
 
             <div className='container py-12'>
+                {msg && (
+                    <div
+                        class={"alert alert-" + msgtype}
+                        role="alert"
+                    >
+                        {msg}
+                    </div>
+                )}
                 <div className="card">
                     <div className='card-header'><b>OPD to iClinicSys Tickets</b></div>
                     <div className="card-body">
@@ -33,11 +53,21 @@ export default function Dashboard({ auth, opdlist }) {
                                         <tr className="" key={dd.id}>
                                             <td className='text-center'>
                                                 <div>{dd.created_at}</div>
-                                                <div>{dd.createdBy.name}</div>
+                                                <div><small>by {dd.createdBy.name}</small></div>
                                             </td>
                                             <td>{dd.name}</td>
                                             <td className='text-center'>{dd.age_sex}</td>
-                                            <td></td>
+                                            <td className='text-center'>
+                                                <form onSubmit={(e) => onSubmit(e, dd.id)}>
+                                                    
+                                                    <button
+                                                        class="btn btn-primary"
+                                                    >
+                                                        Grab Ticket
+                                                    </button>
+                                                </form>
+                                                
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
