@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('has_duration', 1);
             $table->dateTime('until')->nullable();
 
+            $table->string('status')->default('OPEN'); //OPEN, PENDING, FINISHED OR CLOSED
             $table->foreignId('grabbed_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->dateTime('grabbed_date')->nullable();
             $table->foreignId('transferred_to')->nullable()->constrained('users')->onDelete('cascade');

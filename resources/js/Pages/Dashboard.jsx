@@ -1,7 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 
-export default function Dashboard({ auth }) {
+export default function Dashboard({ auth, msg }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -10,6 +10,14 @@ export default function Dashboard({ auth }) {
             <Head title="Main Menu" />
 
             <div className='container py-12'>
+                {msg && (
+                    <div
+                    className={"alert alert-" + msgtype}
+                        role="alert"
+                    >
+                        {msg}
+                    </div>
+                )}
                 <div className="card">
                     <div className="card-body">
                         <div className="d-grid gap-2">
@@ -22,15 +30,18 @@ export default function Dashboard({ auth }) {
                             >
                                 View Tasks
                             </Link>
-                            <Link
-                                href={route('taskgenerator.index')}
-                                type="button"
-                                name=""
-                                id=""
-                                className="btn btn-primary"
-                            >
-                                Task Generator
-                            </Link>
+                            {auth.user.name == 'Moi' && (
+                                <Link
+                                    href={route('taskgenerator.index')}
+                                    type="button"
+                                    name=""
+                                    id=""
+                                    className="btn btn-primary"
+                                >
+                                    Task Generator
+                                </Link>
+                            )}
+                            
                         </div>
                         
                     </div>

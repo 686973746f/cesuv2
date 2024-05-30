@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\SyndromicRecords;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\OpdTicketResource;
+use App\Models\WorkTask;
 
 class TaskController extends Controller
 {
@@ -64,7 +65,6 @@ class TaskController extends Controller
     }
 
     public function viewOpdTicket(SyndromicRecords $id) {
-
         return inertia('Tasks/ViewOpdTicket', [
             'd' => new OpdTicketResource($id),
             'msg' => session('msg'),
@@ -76,11 +76,11 @@ class TaskController extends Controller
 
     }
 
-    public function closeOpdTicket($id) {
+    public function closeOpdTicket(SyndromicRecords $syndromicRecords) {
 
     }
 
-    public function closeCesuTicket($id) {
+    public function closeWorkTicket(WorkTask $workTask) {
         
     }
 
