@@ -22,6 +22,15 @@ export default function Dashboard({ auth }) {
                             >
                                 View Tasks
                             </Link>
+                            <Link
+                                href={route('taskgenerator.index')}
+                                type="button"
+                                name=""
+                                id=""
+                                className="btn btn-primary"
+                            >
+                                Task Generator
+                            </Link>
                         </div>
                         
                     </div>

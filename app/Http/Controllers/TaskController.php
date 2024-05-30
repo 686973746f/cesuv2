@@ -10,7 +10,7 @@ use App\Http\Resources\OpdTicketResource;
 class TaskController extends Controller
 {
     public function index() {
-        $existing_tickets = SyndromicRecords::where('facility_id', auth()->user()->itr_facility_id)
+        $existing_opd_tickets = SyndromicRecords::where('facility_id', auth()->user()->itr_facility_id)
         ->where('ics_grabbedby', Auth::id())
         ->orderBy('ics_grabbed_date', 'ASC')
         ->paginate(5)
@@ -24,7 +24,7 @@ class TaskController extends Controller
         
         return inertia('Tasks/Index', [
             'opdlist' => OpdTicketResource::collection($opdlist),
-            'existing_tickets' => OpdTicketResource::collection($existing_tickets),
+            'existing_opd_tickets' => OpdTicketResource::collection($existing_opd_tickets),
             'msg' => session('msg'),
             'msgtype' => session('msgtype'),
         ]);
@@ -53,7 +53,7 @@ class TaskController extends Controller
             }
 
             return to_route('opdtask_view', $id)
-            ->with('msg', 'Successfully grabbed the ticket.')
+            ->with('msg', 'Successfully grabbed the ticket. Please transfer the Patient details to iClinicSys before closing this ticket.')
             ->with('msgtype', 'success');
         }
         else {
@@ -63,11 +63,10 @@ class TaskController extends Controller
         
     }
 
-    public function viewOpdTicket($id) {
-        $d = SyndromicRecords::findOrFail($id);
+    public function viewOpdTicket(SyndromicRecords $id) {
 
-        return inertia('Tasks/ViewTicket', [
-            'd' => $d,
+        return inertia('Tasks/ViewOpdTicket', [
+            'd' => new OpdTicketResource($id),
             'msg' => session('msg'),
             'msgtype' => session('msgtype'),
         ]);

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TaskGeneratorController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,11 +29,15 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     Route::get('/tasks', [TaskController::class, 'index'])->name('task_index');
     Route::post('/tasks/grab_ticket', [TaskController::class, 'grabTicket'])->name('task_grab');
-    Route::get('/tasks/cesu_task/view/{id}', [TaskController::class, 'viewOpdTicket'])->name('opdtask_view');
+    Route::get('/tasks/cesu_task/view/{id}', [TaskController::class, 'viewOpdTicket'])->name('worktask_view');
     Route::get('/tasks/opd/view/{id}', [TaskController::class, 'viewOpdTicket'])->name('opdtask_view');
 
-    Route::post('/tasks/opd/view/{id}/close_ticket', [TaskController::class, 'viewOpdTicket'])->name('opdtask_view');
-    Route::post('/tasks/cesu_task/view/{id}/close_ticket', [TaskController::class, 'viewOpdTicket'])->name('opdtask_view');
+    //Route::post('/tasks/opd/view/{id}/close_ticket', [TaskController::class, 'viewOpdTicket'])->name('opdtask_view');
+    //Route::post('/tasks/cesu_task/view/{id}/close_ticket', [TaskController::class, 'viewOpdTicket'])->name('opdtask_view');
+});
+
+Route::middleware(['auth', 'verified', 'isGlobalAdmin'])->group(function() {
+    Route::resource('taskgenerator', TaskGeneratorController::class);
 });
 
 Route::middleware('auth')->group(function () {
