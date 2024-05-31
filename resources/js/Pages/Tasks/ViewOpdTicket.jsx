@@ -1,6 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import PrimaryButton from '@/Components/PrimaryButton';
-import InputLabel from '@/Components/BsInputLabel';
+import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/BsTextInput';
 import { Head, Link, useForm} from '@inertiajs/react';
 

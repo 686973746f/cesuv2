@@ -2,7 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import SelectInput from '../../Components/SelectInput';
 import TextInput from '../../Components/BsTextInput';
-import InputLabel from '../../Components/BsInputLabel';
+import InputLabel from '../../Components/InputLabel';
 import TextAreaInput from '../../Components/TextAreaInput';
 
 export default function Index({ auth, msg }) {

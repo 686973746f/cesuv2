@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskGeneratorController;
+use App\Http\Controllers\TestController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -39,6 +40,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
 Route::middleware(['auth', 'verified', 'isGlobalAdmin'])->group(function() {
     Route::resource('taskgenerator', TaskGeneratorController::class);
 });
+
+Route::get('/test', [TestController::class, 'index'])->name('test');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

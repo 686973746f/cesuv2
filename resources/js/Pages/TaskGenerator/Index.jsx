@@ -1,7 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 
-export default function Index({ auth, task_list, msg }) {
+export default function Index({ auth, task_list, msg, msgtype }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -40,10 +40,10 @@ export default function Index({ auth, task_list, msg }) {
                                 <tbody>
                                     {task_list.data.map((d) => (
                                         <tr className="" key={d.id}>
-                                            <td>{d.id}</td>
+                                            <td className='text-center'>{d.id}</td>
                                             <td>{d.name}</td>
-                                            <td>{d.generate_every}</td>
-                                            <td>{d.created_at}</td>
+                                            <td className='text-center'>{d.generate_every}</td>
+                                            <td className='text-center'>{d.created_at}</td>
                                         </tr>
                                     ))}
                                     
