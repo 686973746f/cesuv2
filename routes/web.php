@@ -30,7 +30,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     Route::get('/tasks', [TaskController::class, 'index'])->name('task_index');
     Route::post('/tasks/grab_ticket', [TaskController::class, 'grabTicket'])->name('task_grab');
-    Route::get('/tasks/cesu_task/view/{id}', [TaskController::class, 'viewOpdTicket'])->name('worktask_view');
+    Route::get('/tasks/work_tasks/view/{workTask}', [TaskController::class, 'viewWorkTicket'])->name('worktask_view');
+    Route::post('/tasks/work_tasks/view/{workTask}/close_ticket', [TaskController::class, 'closeWorkTicket'])->name('worktask_closeticket');
     Route::get('/tasks/opd/view/{id}', [TaskController::class, 'viewOpdTicket'])->name('opdtask_view');
 
     //Route::post('/tasks/opd/view/{id}/close_ticket', [TaskController::class, 'viewOpdTicket'])->name('opdtask_view');

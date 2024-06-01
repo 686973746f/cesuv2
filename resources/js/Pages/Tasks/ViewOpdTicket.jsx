@@ -1,6 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import PrimaryButton from '@/Components/PrimaryButton';
-import InputLabel from '@/Components/InputLabel';
+import InputLabel from '@/Components/BsInputLabel';
 import TextInput from '@/Components/BsTextInput';
 import { Head, Link, useForm} from '@inertiajs/react';
 
@@ -9,7 +9,7 @@ export default function Dashboard({ auth, d, msg, msgtype }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">View OPD Ticket #</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">View OPD Ticket #{d.id}</h2>}
         >
             <Head title="View OPD Ticket" />
 
