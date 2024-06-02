@@ -14,7 +14,6 @@ export default function Index({ auth, msg }) {
         monthly_whatday: "",
         has_duration: "",
         duration_type: "",
-        duration_type: "",
         duration_daily_whattime: "",
         duration_weekly_howmanydays: "",
         duration_monthly_howmanymonth: "",
