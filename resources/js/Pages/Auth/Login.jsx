@@ -92,6 +92,8 @@ export default function Login({ status, canResetPassword }) {
                     </PrimaryButton>
                 </div>
             </form>
+            <hr />
+            <p className='mt-3 text-center'>Voluntarily Developed and Maintained by Christian James Historillo. Copyright 2024.</p>
         </GuestLayout>
     );
 }

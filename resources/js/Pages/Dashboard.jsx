@@ -19,6 +19,7 @@ export default function Dashboard({ auth, msg }) {
                     </div>
                 )}
                 <div className="card">
+                    <div className='card-header'><b>CESU General Trias Multi-Purpose Surveillance Web-System V2</b></div>
                     <div className="card-body">
                         <div className="d-grid gap-2">
                             <Link
@@ -46,8 +47,9 @@ export default function Dashboard({ auth, msg }) {
                         
                     </div>
                 </div>
-                
+                <p className='mt-3 text-center'>Voluntarily Developed and Maintained by Christian James Historillo. Copyright 2024.</p>
             </div>
+            
         </AuthenticatedLayout>
     );
 }
